@@ -62,6 +62,10 @@ impl Semaphore {
         }
     }
 
+    pub fn update(&mut self, count: isize) {
+        *self.lock.lock().unwrap() = count;
+    }
+
     /// Acquires a resource of this semaphore, blocking the current thread until
     /// it can do so.
     ///
@@ -122,6 +126,14 @@ mod tests {
     fn test_sem_basic() {
         let s = Semaphore::new(1);
         let _g = s.access();
+    }
+
+    #[test]
+    fn test_sem_update() {
+        let mut s = Semaphore::new(1);
+        s.update(4);
+        s.acquire();
+        s.release();
     }
 
     #[test]
