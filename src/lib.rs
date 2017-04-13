@@ -63,6 +63,7 @@ impl Semaphore {
     }
 
     pub fn update(&mut self, count: isize) {
+        println!("current count: {}", count);
         *self.lock.lock().unwrap() = count;
     }
 
